@@ -10,6 +10,7 @@ public class Fractal : MonoBehaviour {
     public float spawnProbability;
     public float maxRotationSpeed;
 	public float maxTwist;
+    public bool rotate = false;
 
 	private float _rotationSpeed;
     private int _depth;
@@ -48,7 +49,8 @@ public class Fractal : MonoBehaviour {
     }
 
     void Update () {
-		transform.Rotate(0f, 30f * Time.deltaTime, 0f);
+        if(rotate)
+		    transform.Rotate(0f, 30f * Time.deltaTime, 0f);
 	}
 
     /*interpolates between white and yellow based on the _depth value.
@@ -89,6 +91,7 @@ public class Fractal : MonoBehaviour {
         transform.localScale = Vector3.one * childScale;
         transform.localPosition = _childDirections[childIndex] * (.5f + .5f * childScale);
         transform.localRotation = _childOrientations[childIndex];
+        rotate = parent.rotate;
     }
 
 }
