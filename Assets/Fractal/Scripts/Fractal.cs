@@ -50,7 +50,7 @@ public class Fractal : MonoBehaviour {
 
     void Update () {
         if(rotate)
-		    transform.Rotate(0f, 30f * Time.deltaTime, 0f);
+		    transform.Rotate(0f, _rotationSpeed * Time.deltaTime, 0f);
 	}
 
     /*interpolates between white and yellow based on the _depth value.
