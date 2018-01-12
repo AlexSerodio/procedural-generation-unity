@@ -9,7 +9,6 @@ public class Maze : MonoBehaviour {
 	public float generationStepDelay = .01f;
 	public MazePassage passagePrefab;
 	public MazeWall wallPrefab;
-
 	private MazeCell[,] _cells;
 
 	public MazeCell GetCell (IntVector2 coordinates) {
@@ -22,10 +21,6 @@ public class Maze : MonoBehaviour {
 		}
 	}
 
-	public bool ContainsCoordinates (IntVector2 coordinate) {
-		return coordinate.x >= 0 && coordinate.x < size.x && coordinate.z >= 0 && coordinate.z < size.z;
-	}
-	
 	public IEnumerator Generate () {
 		WaitForSeconds delay = new WaitForSeconds(generationStepDelay);
 		_cells = new MazeCell[size.x, size.z];
@@ -37,10 +32,32 @@ public class Maze : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Checks if a specific coordinate is inside the maze limits.
+	/// </summary>
+	public bool ContainsCoordinates (IntVector2 coordinate) {
+		return coordinate.x >= 0 && coordinate.x < size.x && coordinate.z >= 0 && coordinate.z < size.z;
+	}
+
+	/// <summary>
+	/// Creates the first maze cell and store it in a list.
+	/// </summary>
+	/// <param name="activeCells">A list of already instantiated cells.</param>
 	private void DoFirstGenerationStep (List<MazeCell> activeCells) {
 		activeCells.Add(CreateCell(RandomCoordinates));
 	}
 
+	/// <summary>
+	/// Checks if the current cell (last cell from the activeCells list) still has
+	/// some uninicialized edge. 
+	/// If the cell edges already are fully inicialized, remove the current cell 
+	/// from the activeCells list and try again.
+	/// If the cell still has some uninicialized edge, checks if there is a cell in 
+	/// this direction. If so, instantiate a wall between this 
+	/// two cells, otherwise creates a new cell (neighbor) int that position 
+	/// and instantiate a passage between the two.
+	/// </summary>
+	/// <param name="activeCells">A list of already instantiated cells.</param>
 	private void DoNextGenerationStep (List<MazeCell> activeCells) {
 		int currentIndex = activeCells.Count - 1;
 		MazeCell currentCell = activeCells[currentIndex];
@@ -49,11 +66,11 @@ public class Maze : MonoBehaviour {
 			return;
 		}
 		MazeDirection direction = currentCell.RandomUninitializedDirection;
-		IntVector2 coordinates = currentCell.coordinates + direction.ToIntVector2();
-		if (ContainsCoordinates(coordinates)) {
-			MazeCell neighbor = GetCell(coordinates);
+		IntVector2 nextCoordinates = currentCell.coordinates + direction.ToIntVector2();
+		if (ContainsCoordinates(nextCoordinates)) {
+			MazeCell neighbor = GetCell(nextCoordinates);
 			if (neighbor == null) {
-				neighbor = CreateCell(coordinates);
+				neighbor = CreateCell(nextCoordinates);
 				CreatePassage(currentCell, neighbor, direction);
 				activeCells.Add(neighbor);
 			}

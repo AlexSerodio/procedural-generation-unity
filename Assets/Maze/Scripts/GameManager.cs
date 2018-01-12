@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using UnityEngine;
 
+/// <summary>
+/// Responsible for starting and ending the game.
+/// </summary>
 public class GameManager : MonoBehaviour {
 
 	public Maze mazePrefab;

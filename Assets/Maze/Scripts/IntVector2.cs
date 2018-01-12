@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// Represents a 2 dimensional vector such as Vector2 but with int values.
+/// Represents a 2 dimensional array such as Vector2 but with int values instead of float.
 /// </summary>
 [System.Serializable]
 public struct IntVector2 {
