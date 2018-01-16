@@ -22,6 +22,7 @@ public class Fractal : MonoBehaviour {
         Vector3.forward,
         Vector3.back
     };
+
     private static Quaternion[] _childOrientations = {
         Quaternion.identity,
         Quaternion.Euler(0, 0, -90),
@@ -30,10 +31,6 @@ public class Fractal : MonoBehaviour {
         Quaternion.Euler(-90, 0, 0)
     };
 
-    /// <summary>
-    /// Start is called on the frame when a script is enabled just before
-    /// any of the Update methods is called the first time.
-    /// </summary>
     void Start() {
         _rotationSpeed = Random.Range(-maxRotationSpeed, maxRotationSpeed);
         transform.Rotate(Random.Range(-maxTwist, maxTwist), 0f, 0f);

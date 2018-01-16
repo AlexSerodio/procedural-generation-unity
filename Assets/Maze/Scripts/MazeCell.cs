@@ -6,9 +6,14 @@
 public class MazeCell : MonoBehaviour {
 
 	public IntVector2 coordinates;
+	public MazeRoom room;
 	private int _initializedEdgeCount;
-
 	private MazeCellEdge[] _edges = new MazeCellEdge[MazeDirections.COUNT];
+
+	public void Initialize (MazeRoom room) {
+		room.Add(this);
+		transform.GetChild(0).GetComponent<Renderer>().material = room.settings.floorMaterial;
+	}
 
 	/// <summary>
 	/// Gets a specific cell edge.
@@ -50,5 +55,4 @@ public class MazeCell : MonoBehaviour {
 			throw new System.InvalidOperationException("MazeCell has no uninitialized directions left.");
 		}
 	}
-
 }
