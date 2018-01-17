@@ -58,4 +58,12 @@ public static class MazeDirections {
 	public static Quaternion ToRotation (this MazeDirection direction) {
 		return _rotations[(int)direction];
 	}
+
+	public static MazeDirection GetNextClockwise (this MazeDirection direction) {
+		return (MazeDirection)(((int)direction + 1) % COUNT);
+	}
+
+	public static MazeDirection GetNextCounterclockwise (this MazeDirection direction) {
+		return (MazeDirection)(((int)direction + COUNT - 1) % COUNT);
+	}
 }

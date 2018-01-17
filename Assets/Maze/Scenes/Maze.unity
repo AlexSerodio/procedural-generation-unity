@@ -188,7 +188,6 @@ GameObject:
   - component: {fileID: 306789993}
   - component: {fileID: 306789992}
   - component: {fileID: 306789991}
-  - component: {fileID: 306789990}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -196,13 +195,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!81 &306789990
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 306789989}
-  m_Enabled: 1
 --- !u!124 &306789991
 Behaviour:
   m_ObjectHideFlags: 0
@@ -218,8 +210,8 @@ Camera:
   m_GameObject: {fileID: 306789989}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 1}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -231,7 +223,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -300,4 +292,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mazePrefab: {fileID: 114842706361255070, guid: c840211a8b7d9db4c972c00b9ae42e8a,
+    type: 2}
+  playerPrefab: {fileID: 114378767135031868, guid: d7497a9b6169e304fadbb6bfd3178a56,
     type: 2}

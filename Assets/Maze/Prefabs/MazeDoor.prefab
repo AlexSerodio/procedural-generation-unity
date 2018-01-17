@@ -87,7 +87,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4862832293815838}
   - component: {fileID: 33766047307892446}
-  - component: {fileID: 65560859050327612}
   - component: {fileID: 23730556532088842}
   m_Layer: 0
   m_Name: Handle
@@ -123,7 +122,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4639717414734274}
   - component: {fileID: 33003788934476864}
-  - component: {fileID: 65407313455387822}
   - component: {fileID: 23544388317337022}
   m_Layer: 0
   m_Name: Door
@@ -214,8 +212,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1914824945025242}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.32371196, y: 0.4991226, z: -0.021747679}
-  m_LocalScale: {x: 1, y: 1, z: 0.04349535}
+  m_LocalPosition: {x: 0.3227, y: 0.4527, z: -0.021747679}
+  m_LocalScale: {x: 0.64402086, y: 0.792084, z: 0.04349535}
   m_Children: []
   m_Father: {fileID: 4659891521498920}
   m_RootOrder: 0
@@ -537,30 +535,6 @@ BoxCollider:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1927262974866020}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65407313455387822
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1914824945025242}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!65 &65560859050327612
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1796548778077692}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
