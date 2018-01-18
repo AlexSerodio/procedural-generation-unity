@@ -36,6 +36,9 @@ public class Maze : MonoBehaviour {
 			yield return delay;
 			DoNextGenerationStep(activeCells);
 		}
+
+		for (int i = 0; i < _rooms.Count; i++)
+			_rooms[i].Hide();
 	}
 
 	/// <summary>
