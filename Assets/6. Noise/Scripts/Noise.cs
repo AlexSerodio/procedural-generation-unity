@@ -12,7 +12,7 @@ public static class Noise {
 
 	/* represents a permutation table used as a hash function, that is, 
 	   transforms a value into some other value. */
-	private static int[] hash = {
+	private static int[] _hash = {
 		151,160,137, 91, 90, 15,131, 13,201, 95, 96, 53,194,233,  7,225,
 		140, 36,103, 30, 69,142,  8, 99, 37,240, 21, 10, 23,190,  6,148,
 		247,120,234, 75,  0, 26,197, 62, 94,252,219,203,117, 35, 11, 32,
@@ -50,31 +50,85 @@ public static class Noise {
 
 	private const int HASH_MASK = 255;
 
+	/* 5th degree polynomial: 6t5 - 15t4 + 10t3 used to smooth interpolation.*/
+	private static float Smooth (float t) {
+		return t * t * t * (t * (t * 6f - 15f) + 10f);
+	}
+
 	public static float Value1D (Vector3 point, float frequency) {
 		point *= frequency;
-		int i = Mathf.FloorToInt(point.x);
-		i &= HASH_MASK;
-		return hash[i] * (1f / HASH_MASK);
+		int i0 = Mathf.FloorToInt(point.x);
+		float t = point.x - i0;
+		i0 &= HASH_MASK;
+		int i1 = i0 + 1;
+
+		int h0 = _hash[i0];
+		int h1 = _hash[i1];
+
+		t = Smooth(t);
+		return Mathf.Lerp(h0, h1, t) * (1f / HASH_MASK);
 	}
 
 	public static float Value2D (Vector3 point, float frequency) {
 		point *= frequency;
-		int ix = Mathf.FloorToInt(point.x);
-		int iy = Mathf.FloorToInt(point.y);
-		ix &= HASH_MASK;
-		iy &= HASH_MASK;
-		return hash[hash[ix] + iy] * (1f / HASH_MASK);
+		int ix0 = Mathf.FloorToInt(point.x);
+		int iy0 = Mathf.FloorToInt(point.y);
+		float tx = point.x - ix0;
+		float ty = point.y - iy0;
+		ix0 &= HASH_MASK;
+		iy0 &= HASH_MASK;
+		int ix1 = ix0 + 1;
+		int iy1 = iy0 + 1;
+
+		int h0 = _hash[ix0];
+		int h1 = _hash[ix1];
+		int h00 = _hash[h0 + iy0];
+		int h10 = _hash[h1 + iy0];
+		int h01 = _hash[h0 + iy1];
+		int h11 = _hash[h1 + iy1];
+
+		tx = Smooth(tx);
+		ty = Smooth(ty);
+		return Mathf.Lerp(Mathf.Lerp(h00, h10, tx), Mathf.Lerp(h01, h11, tx), ty) * (1f / HASH_MASK);
 	}
 
 	public static float Value3D (Vector3 point, float frequency) {
 		point *= frequency;
-		int ix = Mathf.FloorToInt(point.x);
-		int iy = Mathf.FloorToInt(point.y);
-		int iz = Mathf.FloorToInt(point.z);
-		ix &= HASH_MASK;
-		iy &= HASH_MASK;
-		iz &= HASH_MASK;
-		return hash[hash[hash[ix] + iy] + iz] * (1f / HASH_MASK);
+		int ix0 = Mathf.FloorToInt(point.x);
+		int iy0 = Mathf.FloorToInt(point.y);
+		int iz0 = Mathf.FloorToInt(point.z);
+		float tx = point.x - ix0;
+		float ty = point.y - iy0;
+		float tz = point.z - iz0;
+		ix0 &= HASH_MASK;
+		iy0 &= HASH_MASK;
+		iz0 &= HASH_MASK;
+		int ix1 = ix0 + 1;
+		int iy1 = iy0 + 1;
+		int iz1 = iz0 + 1;
+
+		int h0 = _hash[ix0];
+		int h1 = _hash[ix1];
+		int h00 = _hash[h0 + iy0];
+		int h10 = _hash[h1 + iy0];
+		int h01 = _hash[h0 + iy1];
+		int h11 = _hash[h1 + iy1];
+		int h000 = _hash[h00 + iz0];
+		int h100 = _hash[h10 + iz0];
+		int h010 = _hash[h01 + iz0];
+		int h110 = _hash[h11 + iz0];
+		int h001 = _hash[h00 + iz1];
+		int h101 = _hash[h10 + iz1];
+		int h011 = _hash[h01 + iz1];
+		int h111 = _hash[h11 + iz1];
+
+		tx = Smooth(tx);
+		ty = Smooth(ty);
+		tz = Smooth(tz);
+		return Mathf.Lerp(
+			Mathf.Lerp(Mathf.Lerp(h000, h100, tx), Mathf.Lerp(h010, h110, tx), ty),
+			Mathf.Lerp(Mathf.Lerp(h001, h101, tx), Mathf.Lerp(h011, h111, tx), ty),
+			tz) * (1f / HASH_MASK);
 	}
 
 }
