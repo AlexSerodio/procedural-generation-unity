@@ -105,6 +105,19 @@ public static class Noise {
 		perlinMethods
 	};
 
+	public static float Sum (NoiseMethod method, Vector3 point, float frequency, int octaves, float lacunarity, float persistence) {
+		float sum = method(point, frequency);
+		float amplitude = 1f;
+		float range = 1f;
+		for (int o = 1; o < octaves; o++) {
+			frequency *= lacunarity;
+			amplitude *= persistence;
+			range += amplitude;
+			sum += method(point, frequency) * amplitude;
+		}
+		return sum / range;
+	}
+
 	/* 5th degree polynomial: 6t5 - 15t4 + 10t3 used to smooth interpolation.*/
 	private static float Smooth (float t) {
 		return t * t * t * (t * (t * 6f - 15f) + 10f);
