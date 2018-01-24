@@ -14,6 +14,8 @@ public class TextureCreator : MonoBehaviour {
 	[Range(1, 3)]
 	public int dimensions = 3;
 	public NoiseMethodType type;
+	public Gradient coloring;
+	
 	private Texture2D _texture;
 
 	void OnEnable () {
@@ -57,7 +59,8 @@ public class TextureCreator : MonoBehaviour {
 				float sample = Noise.Sum(method, point, frequency, octaves, lacunarity, persistence);
 				if (type != NoiseMethodType.Value) 
 					sample = sample * 0.5f + 0.5f;
-				_texture.SetPixel(x, y, Color.white * sample);
+				//_texture.SetPixel(x, y, Color.white * sample);
+				_texture.SetPixel(x, y, coloring.Evaluate(sample));
 			}
 		}
 		_texture.Apply();
