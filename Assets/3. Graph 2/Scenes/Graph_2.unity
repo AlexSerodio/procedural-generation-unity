@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 100
-  function: 0
+  function: 3
 --- !u!199 &386885810
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -258,7 +258,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -916234518
+  randomSeed: 316043365
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3589,7 +3589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!199 &388385545
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -3656,7 +3656,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 30
-  function: 0
+  function: 3
+  absolute: 0
+  threshold: 0.5
 --- !u!198 &388385547
 ParticleSystem:
   m_ObjectHideFlags: 0
@@ -3717,7 +3719,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 492761650
+  randomSeed: -340332562
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7194,7 +7196,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!199 &1758743926
 ParticleSystemRenderer:
   serializedVersion: 4
@@ -10635,4 +10637,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolution: 50
-  function: 0
+  function: 3

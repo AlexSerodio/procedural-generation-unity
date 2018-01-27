@@ -155,15 +155,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1cf18d7262f524e833f5b33f80cb4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolution: 100
+  resolution: 20
   offset: {x: 1, y: 2, z: 3}
-  rotation: {x: 45, y: 45, z: 0}
-  frequency: 3
-  octaves: 5
+  rotation: {x: 0, y: 0, z: 0}
+  strength: 1
+  damping: 0
+  frequency: 2
+  octaves: 2
   lacunarity: 2
   persistence: 0.5
   dimensions: 3
-  type: 0
+  type: 1
   coloring:
     serializedVersion: 2
     key0: {r: 0.003921569, g: 0.09803922, b: 0.13333334, a: 1}
@@ -193,6 +195,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 5
     m_NumAlphaKeys: 2
+  coloringForStrength: 1
+  showNormals: 1
 --- !u!23 &767687557
 MeshRenderer:
   m_ObjectHideFlags: 0
