@@ -19,9 +19,10 @@ public class SurfaceCreator : MonoBehaviour {
 	public float persistence = 0.5f;
 	[Range(1, 3)]
 	public int dimensions = 3;
-	public NoiseMethodType type;
+	public NoiseMethodType2 type;
 	public Gradient coloring;
 	public bool coloringForStrength;
+	public bool analyticalDerivatives;
 	public bool showNormals;
 
 	private int _currentResolution;
@@ -44,12 +45,13 @@ public class SurfaceCreator : MonoBehaviour {
 			CreateGrid();
 		
 		Quaternion q = Quaternion.Euler(rotation);
+		Quaternion qInv = Quaternion.Inverse(q);
 		Vector3 point00 = q * new Vector3(-0.5f,-0.5f) + offset;
 		Vector3 point10 = q * new Vector3( 0.5f,-0.5f) + offset;
 		Vector3 point01 = q * new Vector3(-0.5f, 0.5f) + offset;
 		Vector3 point11 = q * new Vector3( 0.5f, 0.5f) + offset;
 		
-		NoiseMethod method = Noise.noiseMethods[(int)type][dimensions - 1];
+		NoiseMethod2 method = Noise2.noiseMethods[(int)type][dimensions - 1];
 		float stepSize = 1f / resolution;
 		float amplitude = damping ? strength / frequency : strength;
 		for (int v = 0, y = 0; y <= resolution; y++) {
@@ -57,24 +59,29 @@ public class SurfaceCreator : MonoBehaviour {
 			Vector3 point1 = Vector3.Lerp(point10, point11, y * stepSize);
 			for (int x = 0; x <= resolution; x++, v++) {
 				Vector3 point = Vector3.Lerp(point0, point1, x * stepSize);
-				float sample = Noise.Sum(method, point, frequency, octaves, lacunarity, persistence);
-				sample = type == NoiseMethodType.Value ? (sample - 0.5f) : (sample * 0.5f);
+				NoiseSample sample = Noise2.Sum(method, point, frequency, octaves, lacunarity, persistence);
+				sample = type == NoiseMethodType2.Value ? (sample - 0.5f) : (sample * 0.5f);
 				if (coloringForStrength) {
-					_colors[v] = coloring.Evaluate(sample + 0.5f);
+					_colors[v] = coloring.Evaluate(sample.value + 0.5f);
 					sample *= amplitude;
 				}
 				else {
 					sample *= amplitude;
-					_colors[v] = coloring.Evaluate(sample + 0.5f);
+					_colors[v] = coloring.Evaluate(sample.value + 0.5f);
 				}
-				_vertices[v].y = sample;
-				_colors[v] = coloring.Evaluate(sample + 0.5f);
+				_vertices[v].y = sample.value;
+				sample.derivative = qInv * sample.derivative;
+				if (analyticalDerivatives) {
+					//calcualtes the analytical normals
+					_normals[v] = new Vector3(-sample.derivative.x, 1f, -sample.derivative.y).normalized;
+				}
 			}
 		}
 		_mesh.vertices = _vertices;
 		_mesh.colors = _colors;
 		//_mesh.RecalculateNormals();
-		CalculateNormals();				//a version of the above RecalculateNormals() method
+		if (!analyticalDerivatives)
+			CalculateNormals();				//a version of the above RecalculateNormals() method
 		_mesh.normals = _normals;
 	}
 
@@ -123,6 +130,7 @@ public class SurfaceCreator : MonoBehaviour {
 		}
 	}
 
+	// calculatest he numerical normals
 	private void CalculateNormals () {
 		for (int v = 0, z = 0; z <= resolution; z++) {
 			for (int x = 0; x <= resolution; x++, v++) {
