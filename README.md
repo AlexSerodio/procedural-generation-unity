@@ -1,4 +1,4 @@
-# procedural_generation_unity
+# Procedural Generation in Unity
 This repository contains five different projects made using the Unity3D engine. The projects are named Graphs, Fractal, Maze, Splines and Noise Derivatives. Below you will find some pictures and briefs explanaitions about each one of them.
 
 ## Graphs
