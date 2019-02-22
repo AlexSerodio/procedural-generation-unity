@@ -1,5 +1,5 @@
 # Procedural Generation in Unity
-This repository contains five different projects made using the Unity3D engine. The projects are named Graphs, Fractal, Maze, Splines and Noise Derivatives. Below you will find some pictures and briefs explanaitions about each one of them.
+This repository contains five different projects made using the Unity3D engine. The projects are named Graphs, Fractal, Maze, Splines and Noise Derivatives. Below you will find some pictures and brief explanaitions about each one of them.
 
 ## Graphs
 This project was made using the Unity Particle System component and consists of several different representations of graphs in 2D, 3D and 4D. Here are the four graphs that I find most interesting: 3D ripple and 3D sine at the top and 4D ripple and 4D sine at the bottom.
@@ -11,10 +11,10 @@ This project was made using the Unity Particle System component and consists of 
   <img width="300" height="300" src="https://github.com/AlexSerodio/procedural-generation-unity/blob/master/screenshots/graphs/graph3_sine.png">
 </p>
 
-Running the project you can see the graphs being updated at real time, giving them a more alive aspect.
+Running the project you can see the graphs being updated at real time, giving them a more vivid appearance.
 
 ## Fractal
-A kind of a fractal generated dynamically each time the scene is started. You can choose to let it static or make it's parts rotate around each other.
+A kind of fractal generated dynamically each time the scene is started. You can choose to let it static or make it's parts rotate around each other.
 
 <p align="center">
   <img width="600" height="450" src="https://github.com/AlexSerodio/procedural-generation-unity/blob/master/screenshots/fractal.png">
@@ -40,3 +40,6 @@ A noise generator that can generate perlin and value noise. It was after updated
 <p align="center">
   <img width="600" height="400" src="https://github.com/AlexSerodio/procedural-generation-unity/blob/master/screenshots/noise_derivatives.png">
 </p>
+
+## Acknowledgments
+These projects were developed following some tutorials created by Jasper Flick, avaliable [here](https://catlikecoding.com/).
