@@ -1,7 +1,7 @@
 # Procedural Generation in Unity
-This repository contains five different projects made using the Unity3D engine following some tutorials created by Jasper Flick, avaliable [here](https://catlikecoding.com/). 
+This repository contains five different projects made using the Unity engine version 2019.4.4f1.
 
-These projects were developed following some tutorials created by Jasper Flick, avaliable [here](https://catlikecoding.com/).
+The projects were developed following some tutorials created by Jasper Flick, avaliable [here](https://catlikecoding.com/).
 Below you will find some pictures and brief explanaitions about each one of them.
 
 ## Graphs
