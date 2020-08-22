@@ -306,6 +306,4 @@ public static class Noise {
 			Mathf.Lerp(Mathf.Lerp(v001, v101, tx), Mathf.Lerp(v011, v111, tx), ty),
 			tz);
 	}
-
-
 }

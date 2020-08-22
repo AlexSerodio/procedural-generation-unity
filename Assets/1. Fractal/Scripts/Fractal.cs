@@ -1,20 +1,22 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
+using System.Collections;
 
-public class Fractal : MonoBehaviour {
+public class Fractal : MonoBehaviour
+{
 
-	public Mesh[] meshes;
+    public Mesh[] meshes;
     public Material material;
     public int maxDepth;
     public float childScale = .5f;
     public float spawnProbability;
     public float maxRotationSpeed;
-	public float maxTwist;
+    public float maxTwist;
     public bool rotate = false;
 
-	private float _rotationSpeed;
+    private float _rotationSpeed;
     private int _depth;
     private Material[,] _materials;
+
     private static Vector3[] _childDirections = {
         Vector3.up,
         Vector3.right,
@@ -31,31 +33,36 @@ public class Fractal : MonoBehaviour {
         Quaternion.Euler(-90, 0, 0)
     };
 
-    void Start() {
+    void Start()
+    {
         _rotationSpeed = Random.Range(-maxRotationSpeed, maxRotationSpeed);
         transform.Rotate(Random.Range(-maxTwist, maxTwist), 0f, 0f);
 
-        if(_materials == null)
+        if (_materials == null)
             InitializeMaterials();
 
         gameObject.AddComponent<MeshFilter>().mesh = meshes[Random.Range(0, meshes.Length)];
         gameObject.AddComponent<MeshRenderer>().material = _materials[_depth, Random.Range(0, 2)];
 
-        if(_depth < maxDepth) 
-           StartCoroutine(CreateChildren());       
+        if (_depth < maxDepth)
+            StartCoroutine(CreateChildren());
     }
 
-    void Update () {
-        if(rotate)
-		    transform.Rotate(0f, _rotationSpeed * Time.deltaTime, 0f);
-	}
+    void Update()
+    {
+        if (rotate)
+            transform.Rotate(0f, _rotationSpeed * Time.deltaTime, 0f);
+    }
 
-    /*interpolates between white and yellow based on the _depth value.
-      higher is the _depth, more yellow is the material
-    */
-    private void InitializeMaterials() {
+    /// <summary>
+    /// Interpolates between white and yellow based on the _depth value.
+    /// The higher the _depth value, the more yellow the material.
+    /// </summary>
+    private void InitializeMaterials()
+    {
         _materials = new Material[maxDepth + 1, 2];
-        for(int i = 0; i <= maxDepth; i++) {
+        for (int i = 0; i <= maxDepth; i++)
+        {
             float t = i / (maxDepth - 1f);
             t *= t;
             _materials[i, 0] = new Material(material);
@@ -67,16 +74,20 @@ public class Fractal : MonoBehaviour {
         _materials[maxDepth, 1].color = Color.red;
     }
 
-    private IEnumerator CreateChildren() {
-        for(int i = 0; i < _childDirections.Length; i++) {
-            if(Random.value < spawnProbability) {
+    private IEnumerator CreateChildren()
+    {
+        for (int i = 0; i < _childDirections.Length; i++)
+        {
+            if (Random.value < spawnProbability)
+            {
                 yield return new WaitForSeconds(Random.Range(.1f, .5f));
                 new GameObject("Fractal Child").AddComponent<Fractal>().Initialize(this, i);
             }
         }
     }
 
-    private void Initialize(Fractal parent, int childIndex) {
+    private void Initialize(Fractal parent, int childIndex)
+    {
         meshes = parent.meshes;
         _materials = parent._materials;
         maxDepth = parent.maxDepth;
@@ -84,11 +95,11 @@ public class Fractal : MonoBehaviour {
         spawnProbability = parent.spawnProbability;
         maxRotationSpeed = parent.maxRotationSpeed;
         childScale = parent.childScale;
+        
         transform.parent = parent.transform;
         transform.localScale = Vector3.one * childScale;
         transform.localPosition = _childDirections[childIndex] * (.5f + .5f * childScale);
         transform.localRotation = _childOrientations[childIndex];
         rotate = parent.rotate;
     }
-
 }

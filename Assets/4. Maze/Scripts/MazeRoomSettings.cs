@@ -2,8 +2,8 @@
 using UnityEngine;
 
 [Serializable]
-public class MazeRoomSettings {
-
-	public Material floorMaterial, wallMaterial;
-
+public class MazeRoomSettings
+{
+    public Material floorMaterial;
+	public Material wallMaterial;
 }
